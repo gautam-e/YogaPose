@@ -10,20 +10,6 @@ from yogapose.users.utils import save_picture
 posts = Blueprint('posts', __name__)
 
 
-@posts.route("/post/new", methods=['GET', 'POST'])
-@login_required
-def new_post():
-    form = PostPoseForm()
-    if form.validate_on_submit():
-        picture_file = save_picture(form.pose_pic.data, foldername='posted_pics', output_size=(300,300) )
-        post = Post(pose_name=form.pose_name.data, pose_pic=picture_file, author=current_user)
-        db.session.add(post)
-        db.session.commit()
-        flash('Your pose has been posted!', 'success')
-        return redirect(url_for('main.home'))
-    return render_template('create_post.html', title='New Post', 
-                            form=form)
-
 @posts.route("/post/<int:post_id>")
 def post(post_id):
     post = Post.query.get_or_404(post_id)

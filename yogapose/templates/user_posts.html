@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1 class="mb-3">Posts by {{ user.username}} ({{ posts.total }})</h1>
+<h1 class="mb-3 text-center">Posts by {{ user.username}} ({{ posts.total }})</h1>
 <div class="row row-cols-1 row-cols-md-3">
   {% for post in posts.items %}
   <div class="col mb-4">
-    <div class="card h-100 text-center">
+    <div class="card h-100 text-center border">
       <img src="{{ url_for('static', filename='/posted_pics/' + post.pose_pic) }}" class="card-img-top" alt="...">
       <div class="card-body">
         <h5> <a class="card-title" href="{{ url_for('posts.post', post_id=post.id)  }}"> {{ post.pose_name }} </a> </h5>

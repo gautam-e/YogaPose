@@ -34,7 +34,7 @@ class User(db.Model, UserMixin):
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    pose_name = db.Column(db.String(100), nullable=False)
+    pose_name = db.Column(db.String(100), nullable=False, default='no pose')
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     pose_pic = db.Column(db.String(20), nullable=False, default='default.jpg')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)

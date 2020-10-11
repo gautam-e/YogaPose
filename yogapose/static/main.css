@@ -1,8 +1,27 @@
+.site-header .navbar-nav .nav-link {
+  
+  color: #cbd5db;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500;
+}
+
 body {
   
   background: #fafafa;
   color: #333333;
   margin-top: 5rem;
+}
+
+.container {
+  
+  max-width: 680px;
+  padding: 0 0;
 }
 
 .content-section {

@@ -1,16 +1,45 @@
 {% extends "layout.html" %}
 {% block content %}
+<section class="jumbotron text-center">
+  <div class="container">
+    <h1>Post your pose!</h1>
+    <p class="lead text-muted">Post a pose and see how well you did it.</p>
+    {% if current_user.is_authenticated  %}
+    
+    <form method="POST" action="" enctype="multipart/form-data">
+      {{ form.hidden_tag() }}
+      <div class="form-group">
+        {{ form.pose_pic() }}
+        {% if form.pose_pic.errors %}
+            {% for error in form.pose_pic.errors %}
+                <span class="text-danger">{{ error }}</span></br>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="form-group">
+      {{ form.submit(class="file btn btn-primary my-2")  }}
+    </div> 
+    </form> 
 
+    {% else %}
+
+    <p class="lead text-muted">...<a href="{{ url_for('users.login') }}">Login</a> or <a href="{{ url_for('users.register') }}">Register</a>...</p>
+    
+    {% endif %}
+  </div>
+</section>
+
+<h1 class="mb-3 text-center">Latest posts</h1>
 
 <div class="row row-cols-1 row-cols-md-3">
     {% for post in posts.items %}
     <div class="col mb-4">
-      <div class="card h-100 text-center">
+      <div class="card h-100 text-center border">
         <img src="{{ url_for('static', filename='/posted_pics/' + post.pose_pic) }}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5> <a class="card-title" href="{{ url_for('posts.post', post_id=post.id)  }}"> {{ post.pose_name }} </a> </h5>
         </div>
-        <div class="card-footer">
+        <div class="card-footer border-top-0">
             <p class="card-text"><small class="text-muted"> <a href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a> on {{ post.date_posted.strftime('%Y-%m-%d') }}</small></p>
         </div>
       </div>
@@ -18,16 +47,24 @@
     {% endfor %}
 </div>
 <!--PAGINATION-->
-{% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-    {% if page_num %}
-      {% if posts.page == page_num %}
-        <a class="btn btn-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+{% if current_user.is_authenticated  %}
+  {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+        {% if posts.page == page_num %}
+          <a class="btn btn-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+        {% else %}
+        <a class="btn btn-outline-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+        {% endif %}
       {% else %}
-      <a class="btn btn-outline-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+        ...
       {% endif %}
-    {% else %}
-      ...
-    {% endif %}
-{% endfor %}
+  {% endfor %}
+{% else %}
+<footer class="footer mt-auto py-3">
+  <div class="container text-center">
+    <span class="text-muted"><h1>...<a href="{{ url_for('users.login') }}">Login</a> or <a href="{{ url_for('users.register') }}">Register</a>...</h1></span>
+  </div>
+</footer>
+{% endif %}
 {% endblock content %}
 	  
