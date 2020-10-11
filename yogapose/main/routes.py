@@ -23,3 +23,6 @@ def privacy_policy():
 def contact():
     return render_template('contact.html', title='Contact and Legal Notice')
 
+@main.route("/layout")
+def layout():
+    return render_template('layout.html')
