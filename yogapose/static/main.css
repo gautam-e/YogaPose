@@ -1,5 +1,4 @@
 .site-header .navbar-nav .nav-link {
-  
   color: #cbd5db;
 }
 
@@ -12,16 +11,9 @@
 }
 
 body {
-  
   background: #fafafa;
   color: #333333;
   margin-top: 5rem;
-}
-
-.container {
-  
-  max-width: 680px;
-  padding: 0 0;
 }
 
 .content-section {

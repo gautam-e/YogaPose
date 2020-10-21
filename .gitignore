@@ -2,5 +2,6 @@
 **/__pycache__/
 venv/
 yogapose/static/p*_pics/
+yogapose/static/main_old.css
 bootstrap-4.5.2-examples/
 

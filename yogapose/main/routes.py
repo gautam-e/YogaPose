@@ -31,6 +31,10 @@ def about():
 def privacy_policy():
     return render_template('privacy_policy.html', title='Privacy Policy')
 
+@main.route("/terms_of_service")
+def terms_of_service():
+    return render_template('terms_of_service.html', title='Terms of Service')
+
 @main.route("/contact")
 def contact():
     return render_template('contact.html', title='Contact and Legal Notice')

@@ -4,6 +4,7 @@ from yogapose import db, bcrypt
 from yogapose.models import User, Post
 from yogapose.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
                                    RequestResetForm, ResetPasswordForm)
+from yogapose.posts.forms import PostPoseForm
 from yogapose.users.utils import save_picture, send_reset_email
 
 users = Blueprint('users', __name__)
@@ -69,14 +70,24 @@ def account():
     return render_template('account.html', title='Account', 
                             image_file=image_file, form=form)
 
-@users.route("/user/<string:username>")
+@users.route("/user/<string:username>", methods=['GET', 'POST'])
+@login_required
 def user_posts(username):
+    form = PostPoseForm()
+    if form.validate_on_submit():
+        picture_file = save_picture(form.pose_pic.data, foldername='posted_pics', output_size=(300,300) )
+        post = Post(pose_pic=picture_file, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your pose has been posted!', 'success')
+        return redirect(url_for('posts.post', post_id=post.id))
+
     page = request.args.get('page', 1, type=int)
     user = User.query.filter_by(username=username).first_or_404()
     posts = Post.query.filter_by(author=user)\
             .order_by(Post.date_posted.desc())\
-            .paginate(page=page, per_page=5)
-    return render_template('user_posts.html', posts=posts, user=user)
+            .paginate(page=page, per_page=6)
+    return render_template('user_posts.html', user=user, posts=posts, form=form)
 
 @users.route("/reset_password", methods=['GET', 'POST'])
 def reset_request():

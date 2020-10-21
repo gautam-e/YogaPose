@@ -1,5 +1,28 @@
 {% extends "layout.html" %}
 {% block content %}
+{% if current_user.username == user.username %}
+<section class="jumbotron text-center">
+  <div class="container">
+    <h1>Post your pose ...</h1>
+    <p class="lead text-muted">... and see how well you did it!</p>    
+    <form method="POST" action="" enctype="multipart/form-data">
+      {{ form.hidden_tag() }}
+      <div class="form-group">
+        {{ form.pose_pic() }}
+        {% if form.pose_pic.errors %}
+            {% for error in form.pose_pic.errors %}
+                <span class="text-danger">{{ error }}</span></br>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="form-group">
+      {{ form.submit(class="file btn btn-primary my-2")  }}
+    </div> 
+    </form> 
+  </div>
+</section>
+{% endif %}
+
 <h1 class="mb-3 text-center">Posts by {{ user.username}} ({{ posts.total }})</h1>
 <div class="row row-cols-1 row-cols-md-3">
   {% for post in posts.items %}
@@ -20,9 +43,9 @@
 {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
     {% if page_num %}
       {% if posts.page == page_num %}
-        <a class="btn btn-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+        <a class="btn btn-info mb-4" href="{{ url_for('users.user_posts', username=user.username, page=page_num) }}">{{ page_num }}</a>
       {% else %}
-      <a class="btn btn-outline-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+        <a class="btn btn-outline-info mb-4" href="{{ url_for('users.user_posts', username=user.username, page=page_num) }}">{{ page_num }}</a>
       {% endif %}
     {% else %}
       ...
