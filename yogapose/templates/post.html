@@ -4,10 +4,12 @@
     <div class="card h-100 text-center">
       <img src="{{ url_for('static', filename='/posted_pics/' + post.pose_pic) }}" class="card-img-top" alt="...">
       <div class="card-body">
-        <h5> <a class="card-title" href="{{ url_for('posts.post', post_id=post.id)  }}"> {{ post.pose_name }} </a> </h5>
+        <a class="card-title" href="{{ url_for('posts.post', post_id=post.id)  }}"> {{ post.pose_name }} </a> 
         {% if post.author == current_user %}
+        <div>
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a>
             <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+        </div>
         {% endif %}
       </div>
       <div class="card-footer">

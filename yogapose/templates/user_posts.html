@@ -31,7 +31,7 @@
     <div class="card h-100 text-center border">
       <img src="{{ url_for('static', filename='/posted_pics/' + post.pose_pic) }}" class="card-img-top" alt="...">
       <div class="card-body">
-        <h5> <a class="card-title" href="{{ url_for('posts.post', post_id=post.id)  }}"> {{ post.pose_name }} </a> </h5>
+        <a class="card-title" href="{{ url_for('posts.post', post_id=post.id)  }}"> {{ post.pose_name }} </a>
       </div>
       <div class="card-footer">
           <p class="card-text"><small class="text-muted"> <a href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a> on {{ post.date_posted.strftime('%Y-%m-%d') }}</small></p>
