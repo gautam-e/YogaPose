@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
+<div class="row row-cols-1 row-cols-md-2">
 <div class="col mb-4">
     <div class="card h-100 text-center">
       <img src="{{ url_for('static', filename='/posted_pics/' + post.pose_pic) }}" class="card-img-top" alt="...">
@@ -17,7 +18,7 @@
       </div>
     </div>
 </div>
-
+</div>
 <!-- Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
