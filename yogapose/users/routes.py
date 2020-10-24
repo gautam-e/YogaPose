@@ -51,13 +51,6 @@ def logout():
 def account():
     form = UpdateAccountForm()
     if form.validate_on_submit():
-        if form.picture.data:
-            picture_file = save_picture(form.picture.data)
-            # delete old profile pic
-            Path(curent_app.root_path).joinpath('static').joinpath('profile_pics').joinpath(current_user.image_file).unlink()
-            # assign new picture to user profile pic
-            current_user.image_file = picture_file
-
         current_user.username = form.username.data
         current_user.email = form.email.data
         db.session.commit()
@@ -66,9 +59,7 @@ def account():
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
-    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    return render_template('account.html', title='Account', 
-                            image_file=image_file, form=form)
+    return render_template('account.html', title='Account', form=form)
 
 @users.route("/user/<string:username>", methods=['GET', 'POST'])
 @login_required

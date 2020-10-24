@@ -19,8 +19,7 @@ def home():
         flash('Your pose has been posted!', 'success')
         return redirect(url_for('posts.post', post_id=post.id))
     page = request.args.get('page', 1, type=int)
-    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=6)
-    return render_template('home.html', posts=posts, form=form)
+    return render_template('home.html', form=form)
 
 
 @main.route("/about")
@@ -35,10 +34,6 @@ def privacy_policy():
 def terms_of_service():
     return render_template('terms_of_service.html', title='Terms of Service')
 
-@main.route("/contact")
-def contact():
-    return render_template('contact.html', title='Contact and Legal Notice')
-
-@main.route("/layout")
-def layout():
-    return render_template('layout.html')
+@main.route("/impressum")
+def impressum():
+    return render_template('impressum.html', title='Contact and Legal Notice')

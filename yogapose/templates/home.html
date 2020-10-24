@@ -29,42 +29,9 @@
   </div>
 </section>
 
-<h1 class="mb-3 text-center">Latest posts</h1>
-
-<div class="row row-cols-1 row-cols-md-3">
-    {% for post in posts.items %}
-    <div class="col mb-4">
-      <div class="card h-100 text-center border">
-        <img src="{{ url_for('static', filename='/posted_pics/' + post.pose_pic) }}" class="card-img-top" alt="...">
-        <div class="card-body">
-          <a class="card-title" href="{{ url_for('posts.post', post_id=post.id)  }}"> {{ post.pose_name }} </a> 
-        </div>
-        <div class="card-footer border-top-0">
-            <p class="card-text"><small class="text-muted"> <a href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a> on {{ post.date_posted.strftime('%Y-%m-%d') }}</small></p>
-        </div>
-      </div>
-    </div>
-    {% endfor %}
-</div>
-<!--PAGINATION-->
 {% if current_user.is_authenticated  %}
-  {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-      {% if page_num %}
-        {% if posts.page == page_num %}
-          <a class="btn btn-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
-        {% else %}
-        <a class="btn btn-outline-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
-        {% endif %}
-      {% else %}
-        ...
-      {% endif %}
-  {% endfor %}
-{% else %}
-<footer class="footer mt-auto py-3">
-  <div class="container text-center">
-    <span class="text-muted"><h1>...<a href="{{ url_for('users.login') }}">Login</a> or <a href="{{ url_for('users.register') }}">Register</a>...</h1></span>
-  </div>
-</footer>
+  <a href="{{ url_for('users.user_posts', username=current_user.username) }}"><h1 class="mb-3 text-center">My Posts</h1></a>
 {% endif %}
+
 {% endblock content %}
 	  

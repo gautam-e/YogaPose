@@ -24,6 +24,7 @@
 {% endif %}
 
 <h1 class="mb-3 text-center">Posts by {{ user.username}} ({{ posts.total }})</h1>
+<p class="text-center">{{ user.about }}</p>
 <div class="row row-cols-1 row-cols-md-3">
   {% for post in posts.items %}
   <div class="col mb-4">
