@@ -17,7 +17,7 @@ def home():
         db.session.add(post)
         db.session.commit()
         flash('Your pose has been posted!', 'success')
-        return redirect(url_for('posts.post', post_id=post.id))
+        return render_template('user_posts.html', user=user, posts=posts, form=form)
     page = request.args.get('page', 1, type=int)
     return render_template('home.html', form=form)
 

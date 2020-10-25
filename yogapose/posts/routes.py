@@ -24,13 +24,11 @@ def update_post(post_id):
     form = UpdatePostPoseForm()
     if form.validate_on_submit():
         post.pose_name = form.pose_name.data
-        #post.pose_pic = form.pose_pic.data
         db.session.commit()
         flash('Your pose has been updated!', 'success')
         return redirect(url_for('posts.post', post_id=post.id))
     elif request.method == 'GET':
         form.pose_name.data = post.pose_name
-        #form.pose_pic.data = post.pose_pic
     return render_template('update_post.html', title='Update Post', 
                             form=form, post=post)
 

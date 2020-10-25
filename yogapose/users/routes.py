@@ -71,7 +71,7 @@ def user_posts(username):
         db.session.add(post)
         db.session.commit()
         flash('Your pose has been posted!', 'success')
-        return redirect(url_for('posts.post', post_id=post.id))
+        #return redirect(url_for('posts.post', post_id=post.id))
 
     page = request.args.get('page', 1, type=int)
     user = User.query.filter_by(username=username).first_or_404()
