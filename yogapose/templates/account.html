@@ -43,6 +43,41 @@
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}
             </div>
+            <div>
+                <!-- Button to Open the Modal -->
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteAccountModal">
+    Delete account
+  </button>
+
+            </div>
         </form>
+  </div>
+  <!-- The Modal -->
+<div class="modal" id="deleteAccountModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Delete your account?</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          All your posts will be deleted as well. This can't be reversed!
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Nope</button>
+            <form action="{{ url_for('users.delete_user', username=current_user.username) }}" method="POST">
+                <input class="btn btn-danger" type="submit" value="Delete">
+            </form>
+            
+        </div>
+  
+      </div>
+    </div>
   </div>
 {% endblock content %}

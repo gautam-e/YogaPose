@@ -80,6 +80,18 @@ def user_posts(username):
             .paginate(page=page, per_page=6)
     return render_template('user_posts.html', user=user, posts=posts, form=form)
 
+@users.route("/user/<string:username>/delete", methods=['POST'])
+@login_required
+def delete_user(username):
+    # delete all posts from user
+    user_query = User.query.filter_by(username=username)
+    Post.query.filter_by(author=user_query.first_or_404()).delete()
+    # delete user from database
+    user_query.delete()
+    db.session.commit()
+    flash('Your account has been deleted!', 'success')
+    return redirect(url_for('main.home'))
+
 @users.route("/reset_password", methods=['GET', 'POST'])
 def reset_request():
     if current_user.is_authenticated:
@@ -110,4 +122,6 @@ def reset_token(token):
         flash('Your password has been updated! You are now able to log in', 'success')
         return redirect(url_for('users.login'))
     return render_template('reset_token.html', title='Reset Password', form=form)
+
+
     
