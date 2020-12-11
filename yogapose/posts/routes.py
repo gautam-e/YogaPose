@@ -6,6 +6,7 @@ from yogapose import db
 from yogapose.models import Post
 from yogapose.posts.forms import PostPoseForm, UpdatePostPoseForm
 from yogapose.users.utils import save_picture
+from pathlib import Path
 
 posts = Blueprint('posts', __name__)
 
@@ -38,7 +39,15 @@ def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
     if post.author != current_user:
         abort(403)
+    # Delete image file
+    # Get path to image
+    rem_file = Path('.').absolute().joinpath('yogapose','static','posted_pics',post.pose_pic)
+    # Check if file exists and NOT EQUAL TO 'default.jpg" then delete
+    if rem_file.is_file() and post.pose_pic != 'default.jpg' :
+        rem_file.unlink()
+    # Delete post from database
     db.session.delete(post)
     db.session.commit()
+    
     flash('Your pose has been deleted!', 'success')
     return redirect(url_for('main.home'))

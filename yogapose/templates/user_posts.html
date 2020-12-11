@@ -31,8 +31,8 @@
       <img class="card-img-top" src="{{ url_for('static', filename='/posted_pics/' + post.pose_pic) }}" class="card-img-top" alt="...">
       <div class="card-body">
         <a class="card-link stretched-link" href="{{ url_for('posts.post', post_id=post.id)  }}"> {{ post.pose_name }} </a>
-      </div>
-      
+        <p class="card-text">({{ post.pose_score }}/100)</p>
+      </div>      
     </div>
   </div>
   {% endfor %}
