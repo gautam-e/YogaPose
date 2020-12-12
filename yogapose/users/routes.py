@@ -5,7 +5,8 @@ from yogapose.models import User, Post
 from yogapose.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
                                    RequestResetForm, ResetPasswordForm)
 from yogapose.posts.forms import PostPoseForm
-from yogapose.users.utils import save_picture, send_reset_email
+from yogapose.main.utils import predict_picture
+from yogapose.users.utils import send_reset_email
 
 users = Blueprint('users', __name__)
 
@@ -66,12 +67,12 @@ def account():
 def user_posts(username):
     form = PostPoseForm()
     if form.validate_on_submit():
-        picture_file = save_picture(form.pose_pic.data, foldername='posted_pics', output_size=(300,300) )
-        post = Post(pose_pic=picture_file, author=current_user)
+        picture_file, score, pose_name = predict_picture(form.pose_pic.data, foldername='posted_pics', output_size=(224,224) )
+        post = Post(pose_pic=picture_file, pose_name=pose_name, pose_score=score, author=current_user)
         db.session.add(post)
         db.session.commit()
         flash('Your pose has been posted!', 'success')
-        #return redirect(url_for('posts.post', post_id=post.id))
+        #return render_template('user_posts.html', user=user, posts=posts, form=form)
 
     page = request.args.get('page', 1, type=int)
     user = User.query.filter_by(username=username).first_or_404()

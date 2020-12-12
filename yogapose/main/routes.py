@@ -1,9 +1,10 @@
 from flask import render_template, request, Blueprint, url_for, flash, redirect
 from yogapose.models import Post
 from yogapose.posts.forms import PostPoseForm
-from yogapose.users.utils import save_picture
+from yogapose.main.utils import predict_picture
 from flask_login import current_user
 from yogapose import db
+from yogapose.models import User, Post
 
 main = Blueprint('main', __name__)
 
@@ -12,12 +13,14 @@ main = Blueprint('main', __name__)
 def home():
     form = PostPoseForm()
     if form.validate_on_submit():
-        picture_file = save_picture(form.pose_pic.data, foldername='posted_pics', output_size=(300,300) )
-        post = Post(pose_pic=picture_file, author=current_user)
+        picture_file, score, pose_name = predict_picture(form.pose_pic.data, foldername='posted_pics', output_size=(224,224) )
+        post = Post(pose_pic=picture_file, pose_name=pose_name, pose_score=score, author=current_user)
         db.session.add(post)
         db.session.commit()
         flash('Your pose has been posted!', 'success')
         #return render_template('user_posts.html', user=user, posts=posts, form=form)
+        return redirect(url_for('users.user_posts', username=current_user.username))
+    
     page = request.args.get('page', 1, type=int)
     return render_template('home.html', form=form)
 
