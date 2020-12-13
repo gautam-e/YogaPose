@@ -1,5 +1,5 @@
 from flask import (render_template, url_for, flash, redirect, request, 
-                    abort, Blueprint)
+                    abort, Blueprint, current_app)
 from flask_login import (login_user, current_user, logout_user, 
                         login_required)
 from yogapose import db
@@ -41,9 +41,9 @@ def delete_post(post_id):
         abort(403)
     # Delete image file
     # Get path to image
-    rem_file = Path('.').absolute().joinpath('yogapose','static','posted_pics',post.pose_pic)
+    rem_file = Path(current_app.root_path).joinpath('static','posted_pics',post.pose_pic)
     # Check if file exists and NOT EQUAL TO 'default.jpg" then delete
-    if rem_file.is_file() and post.pose_pic != 'default.jpg' :
+    if rem_file.is_file():
         rem_file.unlink()
     # Delete post from database
     db.session.delete(post)
