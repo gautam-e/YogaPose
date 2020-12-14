@@ -58,6 +58,23 @@
                         {{ form.confirm_password(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
+                <div class="form-check">
+                    {% if form.agreement.errors %}
+                        {{ form.agreement(class="form-check-input is-invalid") }}
+                        <label class="form-check-label">I have read and agree to the <a href="{{ url_for('main.terms_of_service') }}">Terms of Service</a> 
+                            and <a href="{{ url_for('main.privacy_policy') }}">Privacy Policy</a> of yogapose.app</label>
+                        <!-- {{ form.agreement.label(class="form-check-label") }} -->
+                        <div class="invalid-feedback">
+                            {% for error in form.agreement.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.agreement(class="form-check-input") }}
+                        <label class="form-check-label">I have read and agree to the <a href="{{ url_for('main.terms_of_service') }}">Terms of Service</a> 
+                            and <a href="{{ url_for('main.privacy_policy') }}">Privacy Policy</a> of yogapose.app</label>
+                    {% endif %}
+                  </div>
             </fieldset>
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}

@@ -13,6 +13,7 @@ class RegistrationForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password',
                                      validators=[DataRequired(), EqualTo('password')])
+    agreement = BooleanField(label='ToS and PP accepted')
     submit = SubmitField('Sign Up')
     # validate username to see if it has been taken already
     def validate_username(self, username):
@@ -25,6 +26,12 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError('That email is taken. Please chose a different one.')
+    
+    # validate agreement to ToC and Privacy Policy
+    def validate_agreement(self, agreement):
+        if not agreement.data:
+            raise ValidationError('You need to agree with the Terms and Conditions and the Privacy Policy in order to register.')
+    
 
 
 class LoginForm(FlaskForm):
