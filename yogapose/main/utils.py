@@ -40,10 +40,10 @@ def predict_picture(form_picture, foldername='profile_pics', output_size=(224,22
     picture_fn = random_hex + f_ext
     picture_path = Path(current_app.root_path).joinpath('static').joinpath(foldername).joinpath(picture_fn)
 
-    # Read as image, rotate, resize and save
+    # Read as image
     img = Image.open(form_picture.stream)
     exif_data = img.info.get("exif")
-
+    # Rotate
     try:
         exif_dict = piexif.load(exif_data)
     except TypeError:
