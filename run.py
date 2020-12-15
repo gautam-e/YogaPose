@@ -1,4 +1,5 @@
 from yogapose import create_app
+import fdef
 
 app = create_app()
 

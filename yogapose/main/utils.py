@@ -69,11 +69,6 @@ def predict_picture(form_picture, foldername='profile_pics', output_size=(224,22
 
     # Load model and predict
     path = Path(current_app.root_path).joinpath('pkls')
-    def get_x(r): return path/'data'/r['fn_col']
-    def get_y(r): return [r['label']]
-    import __main__
-    __main__.get_x = get_x
-    __main__.get_y = get_y
     learn_inf = load_learner( path.joinpath('y82-resnet18-multi.pkl') )
 
     pred,pred_idx,probs = learn_inf.predict(img)
