@@ -77,15 +77,16 @@ def predict_picture(form_picture, foldername='profile_pics', output_size=(224,22
     learn_inf = load_learner( path.joinpath('y82-resnet18-multi.pkl') )
 
     pred,pred_idx,probs = learn_inf.predict(img)
-    img.close()
+    poses = learn_inf.dls.vocab
 
-    score = list(probs[pred_idx]) or [0]
-    score = int(round(float(score[0]),2)*100)
-
-    try:
-        name = string.capwords(get_pose_name(pred[0]))
-    except:
-        name = 'No pose'
+    if not pred:
+        name = "No pose"
+        score = 0
+    else:
+        name = poses[probs.argmax().item()]
+        name = string.capwords(get_pose_name(name))
+        score = probs[pred_idx].item()
+        score = int(round(float(score),2)*100)
 
     return picture_fn, score, name
 
