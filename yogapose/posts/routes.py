@@ -49,4 +49,4 @@ def delete_post(post_id):
     db.session.commit()
     
     flash('Your pose has been deleted!', 'success')
-    return redirect(url_for('main.home'))
+    return redirect(url_for('users.user_posts', username=current_user.username))
