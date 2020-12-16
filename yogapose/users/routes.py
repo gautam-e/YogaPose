@@ -5,8 +5,8 @@ from yogapose.models import User, Post
 from yogapose.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
                                    RequestResetForm, ResetPasswordForm)
 from yogapose.posts.forms import PostPoseForm
-from yogapose.main.utils import predict_picture
-from yogapose.users.utils import send_reset_email
+from yogapose.users.utils import send_reset_email, predict_picture
+from pathlib import Path
 
 users = Blueprint('users', __name__)
 
@@ -14,7 +14,7 @@ users = Blueprint('users', __name__)
 @users.route("/register", methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('main.home'))
+        return redirect(url_for('users.user_posts', username=current_user.username))
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -22,14 +22,14 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash(f'Your account has been created! You are now able to log in.', 'success')
-        return redirect(url_for('main.home'))
+        return redirect(url_for('users.user_posts', username=user.username))
     return render_template('register.html', title='Register', form=form)
 
 
 @users.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('main.home'))
+        return redirect(url_for('users.user_posts', username=current_user.username))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -37,7 +37,7 @@ def login():
             login_user(user, remember=form.remember.data)
             #so that user gets directed to last page he tried to access after logging in
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('main.home'))
+            return redirect(next_page) if next_page else redirect(url_for('users.user_posts', username=current_user.username))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', title='Login', form=form)
@@ -72,7 +72,7 @@ def user_posts(username):
         db.session.add(post)
         db.session.commit()
         flash('Your pose has been posted!', 'success')
-        #return render_template('user_posts.html', user=user, posts=posts, form=form)
+        return redirect(url_for('users.user_posts', username=username))
 
     page = request.args.get('page', 1, type=int)
     user = User.query.filter_by(username=username).first_or_404()
@@ -86,7 +86,12 @@ def user_posts(username):
 def delete_user(username):
     # delete all posts from user
     user_query = User.query.filter_by(username=username)
-    Post.query.filter_by(author=user_query.first_or_404()).delete()
+    user_posts_query = Post.query.filter_by(author=user_query.first_or_404())
+    user_posts_list = user_posts_query.all()
+    for user_post in user_posts_list:
+        rem_file = Path(current_app.root_path).joinpath('static','posted_pics',user_post.pose_pic)
+        if rem_file.is_file(): rem_file.unlink()
+    user_posts_query.delete()
     # delete user from database
     user_query.delete()
     db.session.commit()
@@ -96,7 +101,7 @@ def delete_user(username):
 @users.route("/reset_password", methods=['GET', 'POST'])
 def reset_request():
     if current_user.is_authenticated:
-        return redirect(url_for('main.home'))
+        return redirect(url_for('users.user_posts', username=current_user.username))
     form = RequestResetForm()
     
     if form.validate_on_submit():
@@ -109,7 +114,7 @@ def reset_request():
 @users.route("/reset_password/<token>", methods=['GET', 'POST'])
 def reset_token(token):
     if current_user.is_authenticated:
-        return redirect(url_for('main.home'))
+        return redirect(url_for('users.user_posts', username=current_user.username))
     user = User.verify_reset_token(token)
     if user is None:
         flash('That is an invalid or expired token', 'warning')

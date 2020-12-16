@@ -5,7 +5,6 @@ from flask_login import (login_user, current_user, logout_user,
 from yogapose import db
 from yogapose.models import Post
 from yogapose.posts.forms import PostPoseForm, UpdatePostPoseForm
-from yogapose.users.utils import save_picture
 from pathlib import Path
 
 posts = Blueprint('posts', __name__)
