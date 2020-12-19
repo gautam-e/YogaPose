@@ -8,7 +8,7 @@
       <a href="{{ url_for('users.user_posts', username=current_user.username) }}"><h1 class="mb-3 text-center">My posts</h1></a>
       {% else %}
       <p class="lead text-muted">...<a href="{{ url_for('users.login') }}">Login</a> or <a href="{{ url_for('users.register') }}">Register</a>...</p>
-      <p class="lead text-muted small">We don't sell your data to third parties <br> You can delete your account and data at any time</p>
+      <p class="lead text-muted small">We don't sell your data to third parties <br> You can delete your account at any time</p>
     {% endif %}
   </div>
 </section>
