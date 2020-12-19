@@ -13,7 +13,7 @@ Yoga pose web app with user accounts
 
 Package structure:
 -----------------
-
+```
 YogaPose
 ├── README.md
 ├── inference.py
@@ -67,3 +67,4 @@ YogaPose
 │       ├── routes.py
 │       └── utils.py
 └── yogapose.wsgi
+```
