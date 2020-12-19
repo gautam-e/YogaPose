@@ -11,6 +11,8 @@ Yoga pose web app with user accounts
 
 - yogapose.wsgi: This is the wsgi script needed for the apache webserver's configuration file. Before going live, the flask app can be tested by running this script file with _mod_wsgi-express start-server yogapose.wsgi_
 
+- inference.py: Needed for fastai's load_learner to work properly (user-defined functions like _get_x_ and _get_y_ will be imported from here)
+
 Package structure:
 -----------------
 ```
