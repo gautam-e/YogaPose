@@ -32,7 +32,8 @@ def login():
         return redirect(url_for('users.user_posts', username=current_user.username))
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
+        user = User.query.filter_by(email=form.email_or_username.data).first() or \
+            User.query.filter_by(username=form.email_or_username.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             #so that user gets directed to last page he tried to access after logging in
