@@ -6,14 +6,17 @@
     <p class="lead text-muted">... and see how well you did it!</p>
     {% if current_user.is_authenticated  %}
       <a href="{{ url_for('users.user_posts', username=current_user.username) }}"><h1 class="mb-3 text-center">My posts</h1></a>
-      {% else %}
+    {% else %}
       <p class="lead text-muted">...<a href="{{ url_for('users.login') }}">Login</a> or <a href="{{ url_for('users.register') }}">Register</a>...</p>
       <p class="lead text-muted small">We don't sell your data to third parties <br> You may delete your account at any time</p>
     {% endif %}
   </div>
 </section>
-
-
+{% if not current_user.is_authenticated  %}
+<div class="text-center pt-3 pb-3">
+  <img src="static/landingpage.jpg" alt="Example Upload and Score" class="img-fluid">
+</div>
+{% endif %}
 
 {% endblock content %}
 	  
