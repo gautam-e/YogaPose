@@ -3,7 +3,7 @@
 {% if current_user.username == user.username %}
 <section class="jumbotron text-center">
   <div class="container">
-    <h1>Post your pose ...</h1>
+    <h2>Post your yoga pose ...</h2>
     <p class="lead text-muted">... and see how well you did it!</p>    
     <form method="POST" action="" enctype="multipart/form-data">
       {{ form.hidden_tag() }}
@@ -19,7 +19,7 @@
       {{ form.submit(class="file btn btn-primary my-2")  }}
     </div> 
     </form>
-    <p class="lead text-muted small">(Max. JPG-file size 6 MB)</p>
+    <p class="lead text-muted small">(Max. JPEG-file size 6 MB)</p>
   </div>
 </section>
 {% endif %}

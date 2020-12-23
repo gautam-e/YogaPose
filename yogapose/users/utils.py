@@ -1,6 +1,6 @@
 from pathlib import Path
 import secrets
-from PIL import Image
+#from PIL import Image
 from flask import url_for, current_app
 from flask_mail import Message
 from yogapose import mail
@@ -62,9 +62,10 @@ def predict_picture(form_picture, foldername='profile_pics', output_size=(224,22
             elif orientation == 8: img = img.rotate(90, expand=True)
 
     # Resizing and saving 
-    img = PILImage(img)
+    #img = PILImage(img)
     rsz = Resize(output_size, method=ResizeMethod.Crop)
     img = rsz(img, split_idx=1)
+    img = PILImage(img)
     img.save(picture_path)
 
     # Load model and predict
