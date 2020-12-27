@@ -12,9 +12,10 @@
     {% endif %}
   </div>
 </section>
-{% if not current_user.is_authenticated  %}
 
-<div class="container pt-3 pb-3">
+
+<div class="container text-center pt-3 pb-3">
+  <h2>Example</h2>
   <div class="row">
     <div class="col-sm">
       <img src="static/landing-1.jpg" alt="Example Upload and Score" class="img-fluid pt-3 pb-3">
@@ -25,7 +26,432 @@
   </div>
 </div>
 
-{% endif %}
+<div class="container text-center small pt-3 pb-3">
+  <h2>Pose List</h2>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">English Name</th>
+        <th scope="col">Sanskrit Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td></td>
+        <td>Akarna Dhanurasana</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Bharadvaja's Twist Pose</td>
+        <td>Bharadvajasana I</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Boat Pose</td>
+        <td>Paripurna Navasana</td>
+      </tr>
+      <tr>
+        <th scope="row">4</th>
+        <td>Bound Angle Pose</td>
+        <td>Baddha Konasana</td>
+      </tr>
+      <tr>
+        <th scope="row">5</th>
+        <td>Bow Pose</td>
+        <td>Dhanurasana</td>
+      </tr>
+      <tr>
+        <th scope="row">6</th>
+        <td>Bridge Pose</td>
+        <td>Setu Bandha Sarvangasana</td>
+      </tr>
+      <tr>
+        <th scope="row">7</th>
+        <td>Camel Pose</td>
+        <td>Ustrasana</td>
+      </tr>
+      <tr>
+        <th scope="row">8</th>
+        <td>Cat Cow Pose</td>
+        <td>Marjaryasana</td>
+      </tr>
+      <tr>
+        <th scope="row">9</th>
+        <td>Chair Pose</td>
+        <td>Utkatasana</td>
+      </tr>
+      <tr>
+        <th scope="row">10</th>
+        <td>Child Pose</td>
+        <td>Balasana</td>
+      </tr>
+      <tr>
+        <th scope="row">11</th>
+        <td>Cobra Pose</td>
+        <td>Bhujangasana</td>
+      </tr>
+      <tr>
+        <th scope="row">12</th>
+        <td>Cockerel Pose</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th scope="row">13</th>
+        <td>Corpse Pose</td>
+        <td>Savasana</td>
+      </tr>
+      <tr>
+        <th scope="row">14</th>
+        <td>Cow Face Pose</td>
+        <td>Gomukhasana</td>
+      </tr>
+      <tr>
+        <th scope="row">15</th>
+        <td>Crane (crow) Pose</td>
+        <td>Bakasana</td>
+      </tr>
+      <tr>
+        <th scope="row">16</th>
+        <td>Dolphin Plank Pose</td>
+        <td>Makara Adho Mukha Svanasana</td>
+      </tr>
+      <tr>
+        <th scope="row">17</th>
+        <td>Dolphin Pose</td>
+        <td>Ardha Pincha Mayurasana</td>
+      </tr>
+      <tr>
+        <th scope="row">18</th>
+        <td>Downward-facing Dog Pose</td>
+        <td>Adho Mukha Svanasana</td>
+      </tr>
+      <tr>
+        <th scope="row">19</th>
+        <td>Eagle Pose</td>
+        <td>Garudasana</td>
+      </tr>
+      <tr>
+        <th scope="row">20</th>
+        <td>Eight-angle Pose</td>
+        <td>Astavakrasana</td>
+      </tr>
+      <tr>
+        <th scope="row">21</th>
+        <td>Extended Puppy Pose</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th scope="row">22</th>
+        <td>Extended Revolved Side Angle Pose</td>
+        <td>Utthita Parsvakonasana</td>
+      </tr>
+      <tr>
+        <th scope="row">23</th>
+        <td>Extended Revolved Triangle Pose</td>
+        <td>Utthita Trikonasana</td>
+      </tr>
+      <tr>
+        <th scope="row">24</th>
+        <td>Feathered Peacock Pose</td>
+        <td>Pincha Mayurasana</td>
+      </tr>
+      <tr>
+        <th scope="row">25</th>
+        <td>Firefly Pose</td>
+        <td>Tittibhasana</td>
+      </tr>
+      <tr>
+        <th scope="row">26</th>
+        <td>Fish Pose</td>
+        <td>Matsyasana</td>
+      </tr>
+      <tr>
+        <th scope="row">27</th>
+        <td>Four-limbed Staff Pose</td>
+        <td>Chaturanga Dandasana</td>
+      </tr>
+      <tr>
+        <th scope="row">28</th>
+        <td>Frog Pose</td>
+        <td>Bhekasana</td>
+      </tr>
+      <tr>
+        <th scope="row">29</th>
+        <td>Garland Pose</td>
+        <td>Malasana</td>
+      </tr>
+      <tr>
+        <th scope="row">30</th>
+        <td>Gate Pose</td>
+        <td>Parighasana</td>
+      </tr>
+      <tr>
+        <th scope="row">31</th>
+        <td>Half Lord Of The Fishes Pose</td>
+        <td>Ardha Matsyendrasana</td>
+      </tr>
+      <tr>
+        <th scope="row">32</th>
+        <td>Half Moon Pose</td>
+        <td>Ardha Chandrasana</td>
+      </tr>
+      <tr>
+        <th scope="row">33</th>
+        <td>Handstand Pose</td>
+        <td>Adho Mukha Vrksasana</td>
+      </tr>
+      <tr>
+        <th scope="row">34</th>
+        <td>Happy Baby Pose</td>
+        <td>Ananda Balasana</td>
+      </tr>
+      <tr>
+        <th scope="row">35</th>
+        <td>Head-to-knee Forward Bend Pose</td>
+        <td>Janu Sirsasana</td>
+      </tr>
+      <tr>
+        <th scope="row">36</th>
+        <td>Heron Pose</td>
+        <td>Krounchasana</td>
+      </tr>
+      <tr>
+        <th scope="row">37</th>
+        <td>Intense Side Stretch Pose</td>
+        <td>Parsvottanasana</td>
+      </tr>
+      <tr>
+        <th scope="row">38</th>
+        <td>Legs-up-the-wall Pose</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th scope="row">39</th>
+        <td>Locust Pose</td>
+        <td>Salabhasana</td>
+      </tr>
+      <tr>
+        <th scope="row">40</th>
+        <td>Lord Of The Dance Pose</td>
+        <td>Natarajasana</td>
+      </tr>
+      <tr>
+        <th scope="row">41</th>
+        <td>Low Lunge Pose</td>
+        <td>Anjaneyasana</td>
+      </tr>
+      <tr>
+        <th scope="row">42</th>
+        <td>Noose Pose</td>
+        <td>Pasasana</td>
+      </tr>
+      <tr>
+        <th scope="row">43</th>
+        <td>Peacock Pose</td>
+        <td>Mayurasana</td>
+      </tr>
+      <tr>
+        <th scope="row">44</th>
+        <td>Pigeon Pose</td>
+        <td>Kapotasana</td>
+      </tr>
+      <tr>
+        <th scope="row">45</th>
+        <td>Plank Pose</td>
+        <td>Kumbhakasana</td>
+      </tr>
+      <tr>
+        <th scope="row">46</th>
+        <td>Plow Pose</td>
+        <td>Halasana</td>
+      </tr>
+      <tr>
+        <th scope="row">47</th>
+        <td>Pose Dedicated To The Sage Koundinya</td>
+        <td>Eka Pada Koundinyanasana I And Ii</td>
+      </tr>
+      <tr>
+        <th scope="row">48</th>
+        <td></td>
+        <td>Rajakapotasana</td>
+      </tr>
+      <tr>
+        <th scope="row">49</th>
+        <td>Reclining Hand-to-big-toe Pose</td>
+        <td>Supta Padangusthasana</td>
+      </tr>
+      <tr>
+        <th scope="row">50</th>
+        <td>Revolved Head-to-knee Pose</td>
+        <td>Parivrtta Janu Sirsasana</td>
+      </tr>
+      <tr>
+        <th scope="row">51</th>
+        <td>Scale Pose</td>
+        <td>Tolasana</td>
+      </tr>
+      <tr>
+        <th scope="row">52</th>
+        <td>Scorpion Pose</td>
+        <td>Vrischikasana</td>
+      </tr>
+      <tr>
+        <th scope="row">53</th>
+        <td>Seated Forward Bend Pose</td>
+        <td>Paschimottanasana</td>
+      </tr>
+      <tr>
+        <th scope="row">54</th>
+        <td>Shoulder-pressing Pose</td>
+        <td>Bhujapidasana</td>
+      </tr>
+      <tr>
+        <th scope="row">55</th>
+        <td>Side-reclining Leg Lift Pose</td>
+        <td>Anantasana</td>
+      </tr>
+      <tr>
+        <th scope="row">56</th>
+        <td>Side Crane (crow) Pose</td>
+        <td>Parsva Bakasana</td>
+      </tr>
+      <tr>
+        <th scope="row">57</th>
+        <td>Side Plank Pose</td>
+        <td>Vasisthasana</td>
+      </tr>
+      <tr>
+        <th scope="row">58</th>
+        <td>Sitting Pose 1 (normal)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th scope="row">59</th>
+        <td>Split Pose</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th scope="row">60</th>
+        <td>Staff Pose</td>
+        <td>Dandasana</td>
+      </tr>
+      <tr>
+        <th scope="row">61</th>
+        <td>Standing Forward Bend Pose</td>
+        <td>Uttanasana</td>
+      </tr>
+      <tr>
+        <th scope="row">62</th>
+        <td>Standing Split Pose</td>
+        <td>Urdhva Prasarita Eka Padasana</td>
+      </tr>
+      <tr>
+        <th scope="row">63</th>
+        <td>Standing Big Toe Hold Pose</td>
+        <td>Utthita Padangusthasana</td>
+      </tr>
+      <tr>
+        <th scope="row">64</th>
+        <td>Supported Headstand Pose</td>
+        <td>Salamba Sirsasana</td>
+      </tr>
+      <tr>
+        <th scope="row">65</th>
+        <td>Supported Shoulderstand Pose</td>
+        <td>Salamba Sarvangasana</td>
+      </tr>
+      <tr>
+        <th scope="row">66</th>
+        <td></td>
+        <td>Supta Baddha Konasana</td>
+      </tr>
+      <tr>
+        <th scope="row">67</th>
+        <td></td>
+        <td>Supta Virasana Vajrasana</td>
+      </tr>
+      <tr>
+        <th scope="row">68</th>
+        <td>Tortoise Pose</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th scope="row">69</th>
+        <td>Tree Pose</td>
+        <td>Vrksasana</td>
+      </tr>
+      <tr>
+        <th scope="row">70</th>
+        <td>Upward Bow (wheel) Pose</td>
+        <td>Urdhva Dhanurasana</td>
+      </tr>
+      <tr>
+        <th scope="row">71</th>
+        <td>Upward Facing Two-foot Staff Pose</td>
+        <td>Dwi Pada Viparita Dandasana</td>
+      </tr>
+      <tr>
+        <th scope="row">72</th>
+        <td>Upward Plank Pose</td>
+        <td>Purvottanasana</td>
+      </tr>
+      <tr>
+        <th scope="row">73</th>
+        <td></td>
+        <td>Virasana</td>
+      </tr>
+      <tr>
+        <th scope="row">74</th>
+        <td>Warrior Iii Pose</td>
+        <td>Virabhadrasana Iii</td>
+      </tr>
+      <tr>
+        <th scope="row">75</th>
+        <td>Warrior Ii Pose</td>
+        <td>Virabhadrasana Ii</td>
+      </tr>
+      <tr>
+        <th scope="row">76</th>
+        <td>Warrior I Pose</td>
+        <td>Virabhadrasana I</td>
+      </tr>
+      <tr>
+        <th scope="row">77</th>
+        <td>Wide-angle Seated Forward Bend Pose</td>
+        <td>Upavistha Konasana</td>
+      </tr>
+      <tr>
+        <th scope="row">78</th>
+        <td>Wide-legged Forward Bend Pose</td>
+        <td>Prasarita Padottanasana</td>
+      </tr>
+      <tr>
+        <th scope="row">79</th>
+        <td>Wild Thing Pose</td>
+        <td>Camatkarasana</td>
+      </tr>
+      <tr>
+        <th scope="row">80</th>
+        <td>Wind Relieving Pose</td>
+        <td>Pawanmuktasana</td>
+      </tr>
+      <tr>
+        <th scope="row">81</th>
+        <td>Yogic Sleep Pose</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th scope="row">82</th>
+        <td>Reverse Warrior Pose</td>
+        <td>Viparita Virabhadrasana</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+</div>
 
 {% endblock content %}
 	  
