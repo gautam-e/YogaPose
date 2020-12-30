@@ -77,10 +77,13 @@ def user_posts(username):
 
     page = request.args.get('page', 1, type=int)
     user = User.query.filter_by(username=username).first_or_404()
-    posts = Post.query.filter_by(author=user)\
+    posts_query = Post.query.filter_by(author=user)
+    number_of_poses = len({post.pose_name for post in posts_query.all() if post.pose_name!= 'No pose'} )
+    posts = posts_query\
             .order_by(Post.date_posted.desc())\
             .paginate(page=page, per_page=6)
-    return render_template('user_posts.html', user=user, posts=posts, form=form)
+    return render_template('user_posts.html', user=user, posts=posts, form=form, \
+        number_of_poses=number_of_poses)
 
 @users.route("/user/<string:username>/delete", methods=['POST'])
 @login_required

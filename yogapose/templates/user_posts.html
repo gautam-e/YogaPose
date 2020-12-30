@@ -24,7 +24,8 @@
 </section>
 {% endif %}
 
-<h1 class="mb-3 text-center">Posts by {{ user.username}} ({{ posts.total }})</h1>
+<h2 class="mb-3 mt-3 text-center">Hi {{ user.username}}!</h2>
+  <p class="text-center">You have <strong>{{ posts.total }} posts</strong> and have <br> completed <strong>{{ number_of_poses }}</strong> out of <a href="{{ url_for('main.home', _anchor='table-of-poses') }}">82 poses</a>. </p>
 <div class="row row-cols-1 row-cols-md-3">
   {% for post in posts.items %}
   <div class="col mb-4">
