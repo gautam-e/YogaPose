@@ -11,8 +11,11 @@ posts = Blueprint('posts', __name__)
 
 
 @posts.route("/post/<int:post_id>")
+@login_required
 def post(post_id):
     post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
     return render_template('post.html', title=post.pose_name, post=post)
 
 @posts.route("/post/<int:post_id>/update", methods=['GET', 'POST'])
