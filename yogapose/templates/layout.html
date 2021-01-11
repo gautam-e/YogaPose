@@ -23,6 +23,16 @@
     <!-- Import CSS -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RGKYBKZWRH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-RGKYBKZWRH');
+    </script>
+
     {% if title %}
         <title>yogapose - {{ title }}</title>
     {% else %}
