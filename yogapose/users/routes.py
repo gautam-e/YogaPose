@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect, request, Blueprint, current_app
+from flask import render_template, url_for, flash, redirect, request, Blueprint, current_app, abort
 from flask_login import login_user, current_user, logout_user, login_required
 from yogapose import db, bcrypt
 from yogapose.models import User, Post
@@ -66,6 +66,8 @@ def account():
 @users.route("/user/<string:username>", methods=['GET', 'POST'])
 @login_required
 def user_posts(username):
+    if username != current_user.username: 
+        abort(403)
     form = PostPoseForm()
     if form.validate_on_submit():
         picture_file, score, pose_name = predict_picture(form.pose_pic.data, foldername='posted_pics', output_size=(224,224) )
@@ -73,7 +75,7 @@ def user_posts(username):
         db.session.add(post)
         db.session.commit()
         flash('Your pose has been posted!', 'success')
-        return redirect(url_for('users.user_posts', username=username))
+#        return redirect(url_for('users.user_posts', username=username))
 
     page = request.args.get('page', 1, type=int)
     user = User.query.filter_by(username=username).first_or_404()
@@ -88,6 +90,8 @@ def user_posts(username):
 @users.route("/user/<string:username>/delete", methods=['POST'])
 @login_required
 def delete_user(username):
+    if username != current_user.username: 
+        abort(403)
     # delete all posts from user
     user_query = User.query.filter_by(username=username)
     user_posts_query = Post.query.filter_by(author=user_query.first_or_404())
