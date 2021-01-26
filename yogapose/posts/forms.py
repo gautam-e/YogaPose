@@ -4,7 +4,7 @@ from flask_wtf.file import FileField, FileAllowed, FileRequired
 from wtforms.validators import DataRequired
 
 class PostPoseForm(FlaskForm):
-    render_kw={'capture':"user", 'accept':"image/jpg,image/jpeg"}
+    render_kw={'accept':"image/jpg,image/jpeg"}
     pose_pic = FileField(label='Select an image', validators=[FileAllowed(['jpg', 'jpeg'], 'JPGs only!'), DataRequired()], render_kw=render_kw)
     submit = SubmitField(label='Upload and Score')
 
