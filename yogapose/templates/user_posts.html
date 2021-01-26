@@ -1,4 +1,23 @@
 {% extends "layout.html" %}
+
+{% block head %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+  $(document).ready(
+    function() {
+      $('input:submit').attr('disabled', true);
+      $('input:file').change(
+        function() {
+          if ($(this).val()) {
+            $('input:submit').removeAttr('disabled');
+          } else {
+            $('input:submit').attr('disabled', true);
+          }
+        });
+    });
+  </script>
+{% endblock %}
+
 {% block content %}
 {% if current_user.username == user.username %}
 <section class="jumbotron text-center">
@@ -51,6 +70,7 @@
     {% else %}
       ...
     {% endif %}
-{% endfor %}    
+{% endfor %}
+<!--PAGINATION-->
+
 {% endblock content %}
-	  
