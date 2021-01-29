@@ -74,11 +74,11 @@ def predict_picture(form_picture, foldername='profile_pics', output_size=(224,22
     poses = learn_inf.dls.vocab
 
     if not pred:
-        name = "No pose"
+        name = "no pose"
         score = 0
     else:
         name = poses[probs.argmax().item()]
-        name = string.capwords(get_pose_name(name))
+        name = get_pose_name(name)
         score = probs[pred_idx].item()
         score = int(round(float(score),2)*100)
 
