@@ -54,7 +54,7 @@ def account():
     form = UpdateAccountForm()
     if form.validate_on_submit():
         current_user.username = form.username.data
-        current_user.email = form.email.data
+        current_user.email = form.email.data.lower()
         db.session.commit()
         flash('Your account has been updated!', 'success')
         return redirect(url_for('users.account'))
@@ -113,7 +113,7 @@ def reset_request():
     form = RequestResetForm()
     
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
+        user = User.query.filter_by(email=form.email.data.lower()).first()
         send_reset_email(user)
         flash('An email has been sent with instructions to reset your password.', 'info')
         return redirect(url_for('users.login'))
