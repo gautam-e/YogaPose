@@ -28,6 +28,33 @@ def get_pose_name(folder_name):
     return (en_name + sk_name)[0].lower()
 
 
+def yogatodo(user_posts_list: list) -> tuple:
+    """ Return tuple of 
+    1) list of completed asanas and score and 
+    2) list of remaining asanas and score=0
+
+    Parameters:
+    user_posts_list (list): Posts of a user
+    """
+    # Get average score for users posts
+    data = [(user_post.pose_name, user_post.pose_score) for user_post in user_posts_list]
+    df_avg = pd.DataFrame.from_records(data, columns=['pose_name', 'score']).groupby('pose_name').max('score')
+    df_avg.reset_index(inplace=True)
+    df_avg = df_avg[df_avg.pose_name != 'no pose']
+
+    # Get list of poses from model
+    path = Path('/home/gautam/YogaPose/yogapose').joinpath('pkls')
+    learn_inf = load_learner( path.joinpath('y82-resnet18-multi.pkl') )
+    poses = learn_inf.dls.vocab
+
+    #Get poses not done
+    user_poses_set = set(df_avg.pose_name)
+    not_done_poses = {get_pose_name(pose) for pose in poses}.difference(user_poses_set)
+    not_done_list = [(not_done_pose, 0) for not_done_pose in not_done_poses]
+
+    return (df_avg.values.tolist(), not_done_list)
+
+
 def predict_picture(form_picture, foldername='profile_pics', output_size=(224,224)):
     """ Make a random name for the given image, resize it, save it 
     and predict pose name and score

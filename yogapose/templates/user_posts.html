@@ -1,54 +1,27 @@
-{% extends "layout.html" %}
+{% extends "layout_jumbotron.html" %}
 
 {% block head %}
-
+{{ super() }}
 <script>
-    gtag('set', 'location', 'https://yogapose.app/user/xxx');
-</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-  $(document).ready(
-    function() {
-      $('input:submit').attr('disabled', true);
-      $('input:file').change(
-        function() {
-          if ($(this).val()) {
-            $('input:submit').removeAttr('disabled');
-          } else {
-            $('input:submit').attr('disabled', true);
-          }
-        });
-    });
+    gtag('set', 'location', 'https://yogapose.app/user/xxx);
 </script>
 {% endblock %}
 
 {% block content %}
-{% if current_user.username == user.username %}
-<section class="jumbotron text-center">
-  <div class="container">
-    <h2>Post your yoga pose ...</h2>
-    <p class="lead text-muted">... and see how well you did it!</p>    
-    <form method="POST" action="" enctype="multipart/form-data">
-      {{ form.hidden_tag() }}
-      <div class="form-group">
-        {{ form.pose_pic() }}
-        {% if form.pose_pic.errors %}
-            {% for error in form.pose_pic.errors %}
-                <span class="text-danger">{{ error }}</span></br>
-            {% endfor %}
-        {% endif %}
-    </div>
-    <div class="form-group">
-      {{ form.submit(class="file btn btn-primary my-2")  }}
-    </div> 
-    </form>
-    <p class="lead text-muted small">(Max. JPEG-file size 6 MB)</p>
-  </div>
-</section>
-{% endif %}
+{{ super() }}
 
-<h2 class="mb-3 mt-3 text-center">Hi {{ user.username}}!</h2>
-  <p class="text-center">You have <strong>{{ posts.total }} posts</strong> and have <br> completed <strong>{{ number_of_poses }}</strong> out of <a href="{{ url_for('main.home', _anchor='table-of-poses') }}">82 poses</a>. </p>
+<div class="container-fluid mb-3 mt-3 text-center">
+  <a href="{{ url_for('users.user_todo', username=current_user.username) }}" class="btn btn-primary active" role="button" aria-pressed="true">To-Do List</a>
+  <button type="button" class="btn btn-primary" disabled>Your Posts</button>  
+</div>
+
+<div class="container-fluid mb-3 mt-3 text-center">
+  <h3>Hi {{ user.username}}!</h3>
+  <p>
+    You may view <strong>all your posts</strong> here.
+  </p>
+</div>
+
 <div class="row row-cols-1 row-cols-md-3">
   {% for post in posts.items %}
   <div class="col mb-4">
@@ -63,6 +36,7 @@
   </div>
   {% endfor %}
 </div>
+
 <!--PAGINATION-->
 {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
     {% if page_num %}

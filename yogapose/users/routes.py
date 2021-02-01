@@ -5,7 +5,7 @@ from yogapose.models import User, Post
 from yogapose.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
                                    RequestResetForm, ResetPasswordForm)
 from yogapose.posts.forms import PostPoseForm
-from yogapose.users.utils import send_reset_email, predict_picture
+from yogapose.users.utils import send_reset_email, predict_picture, yogatodo
 from pathlib import Path
 
 users = Blueprint('users', __name__)
@@ -29,7 +29,7 @@ def register():
 @users.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('users.user_posts', username=current_user.username))
+        return redirect(url_for('users.user_todo', username=current_user.username))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email_or_username.data.lower()).first() or \
@@ -38,7 +38,7 @@ def login():
             login_user(user, remember=form.remember.data)
             #so that user gets directed to last page he tried to access after logging in
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('users.user_posts', username=current_user.username))
+            return redirect(next_page) if next_page else redirect(url_for('users.user_todo', username=current_user.username))
         else:
             flash('Login Unsuccessful. Please check your login credentials', 'danger')
     return render_template('login.html', title='Login', form=form)
@@ -84,8 +84,28 @@ def user_posts(username):
     posts = posts_query\
             .order_by(Post.date_posted.desc())\
             .paginate(page=page, per_page=6)
-    return render_template('user_posts.html', user=user, posts=posts, form=form, \
-        number_of_poses=number_of_poses)
+    return render_template('user_posts.html', user=user, posts=posts, form=form)
+
+@users.route("/user/<string:username>/todo", methods=['GET', 'POST'])
+@login_required
+def user_todo(username):
+    if username != current_user.username: 
+        abort(403)
+    form = PostPoseForm()
+    if form.validate_on_submit():
+        picture_file, score, pose_name = predict_picture(form.pose_pic.data, foldername='posted_pics', output_size=(224,224) )
+        post = Post(pose_pic=picture_file, pose_name=pose_name, pose_score=score, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your pose has been posted!', 'success')
+        return redirect(url_for('users.user_posts', username=username))
+
+    # Get posts of user
+    user = User.query.filter_by(username=username).first_or_404()
+    user_posts_query = Post.query.filter_by(author=user)
+    user_posts_list = user_posts_query.all()
+    done_avg, not_done = yogatodo(user_posts_list=user_posts_list)
+    return render_template('user_todo.html', user=user, done_list=done_avg, not_done_list=not_done, form=form)
 
 @users.route("/user/<string:username>/delete", methods=['POST'])
 @login_required

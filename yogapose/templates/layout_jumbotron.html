@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block head %}
+
+<script>
+    gtag('set', 'location', 'https://yogapose.app/user/xxx');
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $(document).ready(
+    function() {
+      $('input:submit').attr('disabled', true);
+      $('input:file').change(
+        function() {
+          if ($(this).val()) {
+            $('input:submit').removeAttr('disabled');
+          } else {
+            $('input:submit').attr('disabled', true);
+          }
+        });
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+{% if current_user.username == user.username %}
+<section class="jumbotron text-center">
+  <div class="container-fluid">
+    <h2>Post your pose ...</h2>
+    <p class="lead text-muted">... and see how well you did it!</p> 
+     
+    <form method="POST" action="" enctype="multipart/form-data">
+      {{ form.hidden_tag() }}
+      <div class="form-group">
+        {{ form.pose_pic() }}
+        {% if form.pose_pic.errors %}
+            {% for error in form.pose_pic.errors %}
+                <span class="text-danger">{{ error }}</span></br>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="form-group">
+      {{ form.submit(class="file btn btn-primary my-2")  }}
+    </div> 
+    </form>
+    <p class="lead text-muted small">(Max. JPEG-file size 6 MB)</p>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

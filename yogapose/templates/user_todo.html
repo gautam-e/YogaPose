@@ -1,0 +1,47 @@
+{% extends "layout_jumbotron.html" %}
+
+{% block head %}
+{{ super() }}
+<script>
+    gtag('set', 'location', 'https://yogapose.app/user/xxx/todo');
+</script>
+{% endblock %}
+
+{% block content %}
+{{ super() }}
+
+<div class="container-fluid mb-3 mt-3 text-center">
+    <button type="button" class="btn btn-primary" disabled>To-Do List</button>
+    <a href="{{ url_for('users.user_posts', username=current_user.username) }}" class="btn btn-primary active" role="button" aria-pressed="true">Your Posts</a>
+</div>
+
+<div class="container-fluid mb-3 mt-3 text-center">
+    <h3>Hi {{ user.username}}!</h3>
+    <p class="text-center">You have completed <strong>{{ done_list|length }}</strong> out of 
+        {{ done_list|length + not_done_list|length}} asanas. </p>
+</div>
+
+
+<div class="mb-3 mt-3 container">
+
+    <ul class="list-group">
+        {% for done in done_list %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ done[0].capitalize() }} 
+            <span class="badge badge-primary badge-pill">{{ done[1] }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="mb-3 mt-3 container">
+    <p class="text-center">Post to complete these asanas</p>
+    <ul class="list-group">
+        {% for not_done in not_done_list %}
+        <li class="list-group-item list-group-item-dark d-flex justify-content-between align-items-center">{{ not_done[0].capitalize() }}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock content %}
