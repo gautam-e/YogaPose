@@ -43,7 +43,8 @@ def yogatodo(user_posts_list: list) -> tuple:
     df_avg = df_avg[df_avg.pose_name != 'no pose']
 
     # Get list of poses from model
-    path = Path('/home/gautam/YogaPose/yogapose').joinpath('pkls')
+    #path = Path('/home/gautam/YogaPose/yogapose').joinpath('pkls')
+    path = Path(current_app.root_path).joinpath('pkls')
     learn_inf = load_learner( path.joinpath('y82-resnet18-multi.pkl') )
     poses = learn_inf.dls.vocab
 
