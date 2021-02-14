@@ -84,7 +84,7 @@ def user_posts(username):
     posts = posts_query\
             .order_by(Post.date_posted.desc())\
             .paginate(page=page, per_page=6)
-    return render_template('user_posts.html', user=user, posts=posts, form=form, \
+    return render_template('user_posts.html', title=username, user=user, posts=posts, form=form, \
         number_of_poses=number_of_poses)
 
 @users.route("/user/<string:username>/delete", methods=['POST'])
